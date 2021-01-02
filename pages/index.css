@@ -1,4 +1,5 @@
 @import '../vendor/normalize.css';
+@import '../vendor/fonts/inter.css';
 @import '../blocks/page/page.css';
 @import '../blocks/header/header.css';
 @import '../blocks/header/__logo/header__logo.css';
@@ -7,3 +8,5 @@
 @import '../blocks/profile/__info/profile__info.css';
 @import '../blocks/profile/__name/profile__name.css';
 @import '../blocks/profile/__caption/profile__caption.css';
+@import '../blocks/profile/__edit-button/profile__edit-button.css';
+@import '../blocks/profile/__add-button/profile__add-button.css';

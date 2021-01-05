@@ -20,3 +20,15 @@
     width: 655px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .page {
+    width: 480px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .page {
+    width: 100vw;
+  }
+}

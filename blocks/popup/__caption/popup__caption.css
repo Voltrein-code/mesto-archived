@@ -5,3 +5,11 @@
   line-height: 29px;
   margin: 34px 0 11px 36px;
 }
+
+@media screen and (max-width: 550px) {
+  .popup__caption {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 25px 0 29px 22px;
+  }
+}

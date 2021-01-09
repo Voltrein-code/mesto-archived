@@ -14,3 +14,8 @@
 .card__like-button:hover {
   opacity: 0.5;
 }
+
+.card__like-button:active {
+  background-image: url('../images/like-button_active.svg');
+}
+

@@ -13,7 +13,6 @@ let popupCaption = popup.querySelector('.popup__text_type_caption'); //пере�
 //Функция закрытия popup окна
 function closePopup() {
   popup.classList.remove(popupOpened);
-  page.style.overflow = 'auto';
   page.classList.add(pageOverflow);
 }
 

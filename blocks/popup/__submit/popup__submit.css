@@ -11,7 +11,8 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  margin-top: 48px;
+  margin: 48px 0 37px 0;
+  padding: 0;
   transition: opacity 0.5s linear;
 }
 
@@ -21,7 +22,7 @@
 
 @media screen and (max-width: 550px) {
   .popup__submit {
-    margin-top: 45px;
+    margin: 45px 0 25px 0;
     width: 238px;
     height: 46px;
     font-size: 14px;

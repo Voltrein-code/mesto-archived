@@ -4,6 +4,7 @@ let closeButton = page.querySelector('.popup__close'); //кнопка закры
 let editButton = page.querySelector('.profile__edit-button'); //кнопка редактирования профиля
 let popup = page.querySelector('.popup'); //область popup
 let popupOpened = 'popup_opened'; //переменная с названием класса
+let pageOverflow = 'page_overflow_hidden'; //переменная с названием класса
 let profileName = page.querySelector('.profile__name'); //переменная с именем пользователя
 let profileCaption = page.querySelector('.profile__caption'); //переменная с описанием профиля
 let popupName = popup.querySelector('.popup__text_type_name'); //переменная со значением имени из попап
@@ -13,6 +14,7 @@ let popupCaption = popup.querySelector('.popup__text_type_caption'); //пере�
 function closePopup() {
   popup.classList.remove(popupOpened);
   page.style.overflow = 'auto';
+  page.classList.add(pageOverflow);
 }
 
 //Функция открытия popup окна
@@ -20,9 +22,9 @@ function openPopup() {
   popup.classList.add(popupOpened);
   popupName.value = profileName.textContent;
   popupCaption.value = profileCaption.textContent;
-  page.style.overflow = 'hidden';
+  page.classList.remove(pageOverflow);
 }
-
+//Функция сохранения измененных данных
 function savePopup(evt) {
   evt.preventDefault();
   profileName.textContent = popupName.value;

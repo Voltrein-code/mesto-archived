@@ -43,15 +43,27 @@
     </figure>
   </template>
 
-  <section class="popup">
+  <section class="popup popup-edit">
     <form action="#" class="popup__container" name="edit">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close popup-edit__close" type="button"></button>
       <h2 class="popup__caption">Редактировать профиль</h2>
       <input type="text" class="popup__text popup__text_type_name" name="popup-name">
       <input type="text" class="popup__text popup__text_type_caption" name="popup-caption">
-      <button class="popup__submit" type="submit">Сохранить</button>
+      <button class="popup__submit popup-edit__submit" type="submit">Сохранить</button>
     </form>
   </section>
+
+  <section class="popup popup-add">
+    <form action="#" class="popup__container" name="add">
+      <button class="popup__close popup-add__close" type="button"></button>
+      <h2 class="popup__caption">Новое место</h2>
+      <input type="text" placeholder="Название" class="popup__text popup__text_type_image" name="popup-image">
+      <input type="text" placeholder="Ссылка на картинку" class="popup__text popup__text_type_link" name="popup-link">
+      <button class="popup__submit popup-add__submit" type="submit">Сохранить</button>
+    </form>
+  </section>
+
+
   <script src="./js/script.js"></script>
 </body>
 

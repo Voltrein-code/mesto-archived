@@ -13,6 +13,7 @@ const inputName = popupEdit.querySelector('.popup__text_type_name'); //пере�
 const inputCaption = popupEdit.querySelector('.popup__text_type_caption'); //переменная со значением описания из попап
 const cardContent = page.querySelector('.card-container').content;//содержимое template элемента
 const cardList = page.querySelector('.cards');//контейнер с карточками
+
 //объект с данными пользователя
 
 const user = {
@@ -71,7 +72,12 @@ function onLoad() {
     card.querySelector('.card__image').src = el.link;
     card.querySelector('.card__name').textContent = el.name;
 
+    card.querySelector('.card__like-button').addEventListener('click', (event) => {
+      event.target.classList.toggle('card__like-button_active');
+    });
+    
     cardList.append(card);
+
   })
 }
 //вызов функции при загрузке или перезагрузке страницы
@@ -124,12 +130,13 @@ function addCard(evt) {
 }
 
 //События
-addButton.addEventListener('click', openAddForm) 
+addButton.addEventListener('click', openAddForm); 
 editButton.addEventListener('click', openEditForm);
 closeButtonEdit.addEventListener('click', () => togglePopup(popupEdit));
 closeButtonAdd.addEventListener('click', () => togglePopup(popupAdd));
 popupEdit.addEventListener('submit', saveProfile);
 popupAdd.addEventListener('submit', addCard);
+
 
 popupEdit.addEventListener('click', (event) => {
   event.target.classList.remove(popupOpened);

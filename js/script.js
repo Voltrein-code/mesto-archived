@@ -1,5 +1,5 @@
 //Объявление переменных
-const page = document.querySelector('.page'); //видимая область страницы
+const page = document.querySelector('.root'); //видимая область страницы
 const closeButtonEdit = page.querySelector('.popup-edit__close'); //кнопка закрытия popup окна редактирования
 const closeButtonAdd = page.querySelector('.popup-add__close'); //кнопка закрытия popup окна добавления
 const editButton = page.querySelector('.profile__edit-button'); //кнопка редактирования профиля
@@ -8,7 +8,7 @@ const popup = page.querySelector('.popup'); //область popup
 const popupEdit = page.querySelector('.popup-edit');//окно попап для редактирования
 const popupAdd = page.querySelector('.popup-add');//окно попап для добавления карточки
 const popupOpened = 'popup_opened'; //переменная с названием класса
-const pageOverflow = 'page_overflow_hidden'; //переменная с названием класса
+const pageOverflow = 'root_overflow_hidden'; //переменная с названием класса
 const inputName = popupEdit.querySelector('.popup__text_type_name'); //переменная со значением имени из попап
 const inputCaption = popupEdit.querySelector('.popup__text_type_caption'); //переменная со значением описания из попап
 const cardContent = page.querySelector('.card-container').content;//содержимое template элемента

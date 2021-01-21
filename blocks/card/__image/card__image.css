@@ -12,8 +12,17 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .card__image {
+    width: calc(282px*1.5);
+    height: calc(282px*1.5);
+  }
+}
+
 @media screen and (max-width: 550px) {
   .card__image {
+    width: 282px;
+    height: 282px;
     border-radius: 10px 10px 0 0;
   }
 }

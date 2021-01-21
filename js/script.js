@@ -7,13 +7,14 @@ const popupOpened = 'popup_opened'; //переменная с названием
 const pageOverflow = 'page_overflow_hidden'; //переменная с названием класса
 const inputName = popup.querySelector('.popup__text_type_name'); //переменная со значением имени из попап
 const inputCaption = popup.querySelector('.popup__text_type_caption'); //переменная со значением описания из попап
-const cardContent = page.querySelector('.card').content
-
+const cardContent = page.querySelector('.card-container').content//содержимое template элемента
+const cardList = page.querySelector('.cards');//контейнер с карточками
+//объект с данными пользователя
 const user = {
   name: ' ',
   caption: ' '
 }
-
+//массив с карточками
 const initialCards = [
   {
     name: 'Архыз',
@@ -53,39 +54,46 @@ function onLoad() {
 
     card.querySelector('.card__image').src = el.link;
     card.querySelector('.card__name').textContent = el.name;
-    
+
+    cardList.append(card);
   })
 }
-
+//вызов функции при загрузке или перезагрузке страницы
 onLoad();
 
-
+//логика открытия и закрытия окна попап
 function togglePopup() {
   popup.classList.toggle(popupOpened);
   page.classList.toggle(pageOverflow);
 }
 
-
 //Функция открытия popup окна
 function openEditForm() {
   togglePopup();
+
   inputName.value = user.name.textContent;
   inputCaption.value = user.caption.textContent;
 }
 //Функция сохранения измененных данных
 function saveProfile(evt) {
   evt.preventDefault();
+
   user.name.textContent = inputName.value;
   user.caption.textContent = inputCaption.value;
+
   togglePopup();
 }
 
 
 //События
 editButton.addEventListener('click', openEditForm);
-closeButton.addEventListener('click', togglePopup);
+closeButton.addEventListener('click', closePopup);
 popup.addEventListener('submit', saveProfile);
 
 popup.addEventListener('click', (event) => {
   event.target.classList.remove(popupOpened);
+
+  if(event.target === popup) {
+    page.classList.remove(pageOverflow);
+  }
 });

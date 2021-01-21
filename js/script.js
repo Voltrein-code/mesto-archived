@@ -118,7 +118,7 @@ function addCard(evt) {
     name: addCardName.value,
     link: addCardLink.value
   }
-  initialCards.push(newCard);
+  initialCards.unshift(newCard);
   onLoad();
   togglePopup(popupAdd);
 }

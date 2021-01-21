@@ -120,7 +120,7 @@ function addCard(evt) {
   }
   initialCards.push(newCard);
   onLoad();
-  console.log(initialCards);
+  togglePopup(popupAdd);
 }
 
 //События

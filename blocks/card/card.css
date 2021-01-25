@@ -8,6 +8,7 @@
   flex-grow: inherit;
   margin: 0;
   transition: box-shadow 0.5s linear;
+  position: relative;
 }
 
 .card:hover {

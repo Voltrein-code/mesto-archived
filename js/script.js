@@ -19,7 +19,7 @@ const cardList = page.querySelector('.cards');//контейнер с карто
 const user = {
   name: ' ',
   caption: ' '
-}
+};
 //массив с карточками
 const initialCards = [
   {

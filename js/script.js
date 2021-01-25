@@ -60,25 +60,31 @@ function onLoad() {
   user.name = page.querySelector('.profile__name');
   user.caption = page.querySelector('.profile__caption');
 
-  
+
 
   resetCards();
   //загрузка карточек с фотографиями мест
-  initialCards.forEach((el) => {
-    
-    
-    const card = cardContent.cloneNode(true);
+  initialCards.forEach((el, index) => {
 
-    card.querySelector('.card__image').src = el.link;
-    card.querySelector('.card__name').textContent = el.name;
 
-    card.querySelector('.card__like-button').addEventListener('click', (event) => {
-      event.target.classList.toggle('card__like-button_active');
-    });
-    
-    cardList.append(card);
+      const card = cardContent.cloneNode(true);
 
-  })
+      card.querySelector('.card__image').src = el.link;
+      card.querySelector('.card__name').textContent = el.name;
+
+      card.querySelector('.card__like-button').addEventListener('click', (event) => {
+        event.target.classList.toggle('card__like-button_active');
+      });
+
+      card.querySelector('.card__delete-button').addEventListener('click', (event) => {
+        console.log(index);
+        initialCards.splice(index, 1);
+        onLoad();
+      });
+
+      cardList.append(card);
+    })
+
 }
 //вызов функции при загрузке или перезагрузке страницы
 onLoad();
@@ -91,7 +97,7 @@ function togglePopup(currentPopup) {
 
 function openAddForm() {
   togglePopup(popupAdd);
-  
+
   closeButton = popupAdd.querySelector('.popup__close');
 
 }
@@ -129,8 +135,12 @@ function addCard(evt) {
   togglePopup(popupAdd);
 }
 
+function deleteCard() {
+
+}
+
 //События
-addButton.addEventListener('click', openAddForm); 
+addButton.addEventListener('click', openAddForm);
 editButton.addEventListener('click', openEditForm);
 closeButtonEdit.addEventListener('click', () => togglePopup(popupEdit));
 closeButtonAdd.addEventListener('click', () => togglePopup(popupAdd));
@@ -138,10 +148,11 @@ popupEdit.addEventListener('submit', saveProfile);
 popupAdd.addEventListener('submit', addCard);
 
 
+
 popupEdit.addEventListener('click', (event) => {
   event.target.classList.remove(popupOpened);
 
-  if(event.target === popupEdit) {
+  if (event.target === popupEdit) {
     page.classList.remove(pageOverflow);
   }
 });
@@ -149,7 +160,7 @@ popupEdit.addEventListener('click', (event) => {
 popupAdd.addEventListener('click', (event) => {
   event.target.classList.remove(popupOpened);
 
-  if(event.target === popupAdd) {
+  if (event.target === popupAdd) {
     page.classList.remove(pageOverflow);
   }
 });

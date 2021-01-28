@@ -7,12 +7,7 @@
   flex-direction: column;
   flex-grow: inherit;
   margin: 0;
-  transition: box-shadow 0.5s linear;
   position: relative;
-}
-
-.card:hover {
-  box-shadow: 1px 1px 2px black, 0 0 2em white;
 }
 
 @media screen and (max-width: 960px) {

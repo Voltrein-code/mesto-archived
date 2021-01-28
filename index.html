@@ -34,46 +34,46 @@
       <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
     <template class="card-container">
-      <figure class="card">
+      <article class="card">
         <img src="#" class="card__image" alt=" ">
         <button class="card__delete-button" type="button"></button>
-        <figcaption class="card__caption">
+        <div class="card__caption">
           <h2 class="card__name"></h2>
           <button class="card__like-button" type="button"></button>
-        </figcaption>
-      </figure>
+        </div>
+      </article>
     </template>
 
-    <section class="popup popup-edit">
+    <article class="popup popup_type_edit-form">
       <form action="#" class="popup__container" name="edit">
-        <button class="popup__close popup-edit__close" type="button"></button>
+        <button class="popup__close popup__close_type_edit-form" type="button"></button>
         <h2 class="popup__caption">Редактировать профиль</h2>
         <input type="text" class="popup__text popup__text_type_name" name="popup-name">
         <input type="text" class="popup__text popup__text_type_caption" name="popup-caption">
-        <button class="popup__submit popup-edit__submit" type="submit">Сохранить</button>
+        <button class="popup__submit" type="submit">Сохранить</button>
       </form>
-    </section>
+    </article>
 
-    <section class="popup popup-add">
+    <article class="popup popup_type_add-form">
       <form action="#" class="popup__container" name="add">
-        <button class="popup__close popup-add__close" type="button"></button>
+        <button class="popup__close popup__close_type_add-form" type="button"></button>
         <h2 class="popup__caption">Новое место</h2>
         <input type="text" placeholder="Название" class="popup__text popup__text_type_image" name="popup-image">
         <input type="text" placeholder="Ссылка на картинку" class="popup__text popup__text_type_link" name="popup-link">
-        <button class="popup__submit popup-add__submit" type="submit">Сохранить</button>
+        <button class="popup__submit" type="submit">Сохранить</button>
       </form>
-    </section>
+    </article>
 
-    <section class="popup popup-card">
+    <article class="popup popup_type_card-image">
       <figure class="popup__image-container">
-        <button class="popup__close popup-card__close" type="button"></button>
+        <button class="popup__close popup__close_type_card-image" type="button"></button>
         <img src="#" class="popup__image" alt=" ">
         <figcaption class="popup__figcaption"></figcaption>
       </figure>
-    </section>
+    </article>
   </div>
-
-  <script src="./js/script.js"></script>
+  <script src="./js/initial-cards.js"></script>
+  <script src="./js/index.js"></script>
 </body>
 
 </html>

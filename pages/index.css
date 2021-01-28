@@ -2,7 +2,6 @@
 @import '../vendor/fonts/inter.css';
 @import '../blocks/root/root.css';
 @import '../blocks/page/page.css';
-@import '../blocks/root/_overflow/root_overflow_hidden.css';
 @import '../blocks/header/header.css';
 @import '../blocks/header/__logo/header__logo.css';
 @import '../blocks/profile/profile.css';

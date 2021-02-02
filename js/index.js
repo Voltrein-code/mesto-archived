@@ -19,6 +19,7 @@ const closeAddPopup = page.querySelector('.popup__close_type_add-form');
 const closeImagePopup = page.querySelector('.popup__close_type_card-image');
 const profileName = page.querySelector('.profile__name');
 const profileCaption = page.querySelector('.profile__caption');
+const addPopupButton = popupAdd.querySelector('.popup__submit');
 
 //функция заполнения данных карточки и ее события
 function getCard(el) {
@@ -69,11 +70,29 @@ function deleteCard (event) {
 function openPopup(currentPopup) {
   currentPopup.classList.add(popupOpened);
 
+  enableValidation({
+    formSelector: '.popup__container',
+    inputSelector: '.popup__text',
+    submitButtonSelector: '.popup__submit',
+    activeButtonClass: 'popup__submit_active',
+    inputErrorClass: 'popup__text_type_error',
+  });
+
+  page.addEventListener('keydown', (event) => keyEscapeHandler(event, currentPopup));
   currentPopup.addEventListener('click', (event) => {
     if(event.target === currentPopup) {
       closePopup(currentPopup);
     }
   });
+}
+
+//закрытие попап по нажатию клавиши Esc
+function keyEscapeHandler(event, popup) {
+  if(event.key === 'Escape') {
+    closePopup(popup);
+
+    page.removeEventListener('keydown', (event) => keyEscapeHandler(event, popup));
+  }
 }
 
 //функция закрытия попап
@@ -111,6 +130,7 @@ function addCard(evt) {
   cardList.prepend(getCard(newCard));
   addCardName.value = '';
   addCardLink.value = '';
+
   closePopup(popupAdd);
 }
 
@@ -118,7 +138,7 @@ function addCard(evt) {
 closeAddPopup.addEventListener('click', () => closePopup(popupAdd));
 closeEditPopup.addEventListener('click', () => closePopup(popupEdit));
 closeImagePopup.addEventListener('click', () => closePopup(popupCard));
-editButton.addEventListener('click', () => editForm());
 addButton.addEventListener('click', () => openPopup(popupAdd));
-popupAdd.addEventListener('submit', (evt) => addCard(evt));
-popupEdit.addEventListener('submit', (evt) => saveProfile(evt));
+editButton.addEventListener('click', editForm);
+popupAdd.addEventListener('submit', addCard);
+popupEdit.addEventListener('submit', saveProfile);

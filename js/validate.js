@@ -38,14 +38,14 @@ function setEventListeners(formElement, classObject) {
   });
 }
 
+//получить статус для кнопки
 function hasInvalidInput (inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-
-
+//проверка статуса кнопки submit
 function toggleButtonState (inputList, buttonElement, classObject) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.remove(classObject.activeButtonClass);
@@ -64,4 +64,3 @@ function enableValidation(classObject) {
     setEventListeners(formElement, classObject);
   })
 }
-

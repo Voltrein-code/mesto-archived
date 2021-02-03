@@ -45,14 +45,24 @@ function hasInvalidInput (inputList) {
   });
 };
 
+//деактивация кнопки
+function deactivateButton(button, classObject) {
+  button.classList.remove(classObject.activeButtonClass);
+  button.setAttribute('disabled', 'disabled');
+}
+
+//активация кнопки
+function activateButton(button, classObject) {
+  button.classList.add(classObject.activeButtonClass);
+  button.removeAttribute('disabled');
+}
+
 //проверка статуса кнопки submit
 function toggleButtonState (inputList, buttonElement, classObject) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.remove(classObject.activeButtonClass);
-    buttonElement.setAttribute('disabled', 'disabled');
+    deactivateButton(buttonElement, classObject);
   } else {
-    buttonElement.classList.add(classObject.activeButtonClass);
-    buttonElement.removeAttribute('disabled');
+    activateButton(buttonElement, classObject);
   }
 };
 
@@ -64,3 +74,6 @@ function enableValidation(classObject) {
     setEventListeners(formElement, classObject);
   })
 }
+
+//включение валидации
+enableValidation(selectorObject);

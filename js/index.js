@@ -20,6 +20,14 @@ const closeImagePopup = page.querySelector('.popup__close_type_card-image');
 const profileName = page.querySelector('.profile__name');
 const profileCaption = page.querySelector('.profile__caption');
 const addPopupButton = popupAdd.querySelector('.popup__submit');
+const keyEscape = 'Escape';
+const selectorObject = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__submit',
+  activeButtonClass: 'popup__submit_active',
+  inputErrorClass: 'popup__text_type_error',
+};
 
 //функция заполнения данных карточки и ее события
 function getCard(el) {
@@ -70,34 +78,33 @@ function deleteCard (event) {
 function openPopup(currentPopup) {
   currentPopup.classList.add(popupOpened);
 
-  enableValidation({
-    formSelector: '.popup__container',
-    inputSelector: '.popup__text',
-    submitButtonSelector: '.popup__submit',
-    activeButtonClass: 'popup__submit_active',
-    inputErrorClass: 'popup__text_type_error',
-  });
+  page.addEventListener('keydown', keyEscapeHandler);
+  currentPopup.addEventListener('click', closeOverlay);
+}
 
-  page.addEventListener('keydown', (event) => keyEscapeHandler(event, currentPopup));
-  currentPopup.addEventListener('click', (event) => {
-    if(event.target === currentPopup) {
-      closePopup(currentPopup);
-    }
-  });
+//закрытие попап по нажатию на оверлей
+function closeOverlay(event) { 
+  const openedPopup = page.querySelector('.popup_opened')
+
+  if(event.target === openedPopup) {
+    closePopup(openedPopup);
+  }
 }
 
 //закрытие попап по нажатию клавиши Esc
-function keyEscapeHandler(event, popup) {
-  if(event.key === 'Escape') {
-    closePopup(popup);
+function keyEscapeHandler(event) {
+  const openedPopup = page.querySelector('.popup_opened')
 
-    page.removeEventListener('keydown', (event) => keyEscapeHandler(event, popup));
+  if(event.key === keyEscape) {
+    closePopup(openedPopup);
   }
 }
 
 //функция закрытия попап
 function closePopup(currentPopup) {
   currentPopup.classList.remove(popupOpened);
+  currentPopup.removeEventListener('click', closeOverlay);
+  page.removeEventListener('keydown', keyEscapeHandler);
 }
 
 //функция сохранения данных пользователя
@@ -122,6 +129,8 @@ function editForm() {
 function addCard(evt) {
   evt.preventDefault();
 
+  const submitButton = popupAdd.querySelector(selectorObject.submitButtonSelector);
+
   const newCard = {
     name: addCardName.value,
     link: addCardLink.value
@@ -131,6 +140,7 @@ function addCard(evt) {
   addCardName.value = '';
   addCardLink.value = '';
 
+  deactivateButton(submitButton, selectorObject);
   closePopup(popupAdd);
 }
 

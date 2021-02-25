@@ -1,33 +1,7 @@
-//Объявление переменных
-const page = document.querySelector('.root'); //видимая область страницы
-const editButton = page.querySelector('.profile__edit-button'); //кнопка редактирования профиля
-const addButton = page.querySelector('.profile__add-button')//кнопка добавления
-const popupEdit = page.querySelector('.popup_type_edit-form');//окно попап для редактирования
-const popupAdd = page.querySelector('.popup_type_add-form');//окно попап для добавления карточки
-const popupCard = page.querySelector('.popup_type_card-image');//окно попап для изображения карточки
-const popupOpened = 'popup_opened'; //переменная с названием класса
-const inputName = popupEdit.querySelector('.popup__text_type_name'); //переменная со значением имени из попап
-const inputCaption = popupEdit.querySelector('.popup__text_type_caption'); //переменная со значением описания из попап
-const cardContent = page.querySelector('.card-container').content;//содержимое template элемента
-const cardList = page.querySelector('.cards');//контейнер с карточками
-const popupImage = page.querySelector('.popup__image');//фотография из карточки в попап
-const popupFigcaption = page.querySelector('.popup__figcaption');//подпись для фотографии в попап
-const addCardName = popupAdd.querySelector('.popup__text_type_image');//строка ввода имени карточки
-const addCardLink = popupAdd.querySelector('.popup__text_type_link');//строка ввода ссылки на изоюражение карточки
-const closeEditPopup = page.querySelector('.popup__close_type_edit-form');
-const closeAddPopup = page.querySelector('.popup__close_type_add-form');
-const closeImagePopup = page.querySelector('.popup__close_type_card-image');
-const profileName = page.querySelector('.profile__name');
-const profileCaption = page.querySelector('.profile__caption');
-const addPopupButton = popupAdd.querySelector('.popup__submit');
-const keyEscape = 'Escape';
-const selectorObject = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__text',
-  submitButtonSelector: '.popup__submit',
-  activeButtonClass: 'popup__submit_active',
-  inputErrorClass: 'popup__text_type_error',
-};
+//импорт необходимых модулей
+import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, cardList, popupImage,
+  popupFigcaption, addCardName, addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape,
+  selectorObject, initialCards} from './data.js';
 
 //функция заполнения данных карточки и ее события
 function getCard(el) {

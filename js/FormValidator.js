@@ -1,3 +1,14 @@
+import {page, selectorObject} from './data.js';
+
+class FormValidator {
+  constructor(selectorObject, validateElement) {
+    this._seselectorObject = selectorObject;
+    this._validateElement = validateElement;
+  }
+
+  
+}
+
 //функция показа сообщения об ошибке валидации
 function showInputError(formElement, inputElement, errorMessage, classObject) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);

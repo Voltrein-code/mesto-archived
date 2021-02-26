@@ -1,8 +1,6 @@
 //импорт необходимых модулей
-import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, cardList, popupImage,
-  popupFigcaption, addCardName, addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape,
-  selectorObject, initialCards} from './data.js';
-
+import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, addCardName,
+        addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape, initialCards} from './data.js';
 
 import Card from './Card.js';
 

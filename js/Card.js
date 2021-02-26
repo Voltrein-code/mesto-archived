@@ -1,6 +1,4 @@
-import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, cardList, popupImage,
-  popupFigcaption, addCardName, addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape,
-  selectorObject, initialCards} from './data.js';
+import {popupAdd, popupCard, cardContent, cardList, popupImage, popupFigcaption, addCardName, addCardLink, selectorObject} from './data.js';
 
 import {openPopup, closePopup} from './index.js';
 import FormValidator from './FormValidator.js';

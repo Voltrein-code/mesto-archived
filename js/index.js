@@ -3,6 +3,8 @@ import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened
   popupFigcaption, addCardName, addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape,
   selectorObject, initialCards} from './data.js';
 
+import FormValidator from './FormValidator.js';
+
 //функция заполнения данных карточки и ее события
 function getCard(el) {
   const card = cardContent.cloneNode(true);
@@ -114,7 +116,7 @@ function addCard(evt) {
   addCardName.value = '';
   addCardLink.value = '';
 
-  deactivateButton(submitButton, selectorObject);
+  FormValidator.deactivateButton(submitButton, selectorObject);
   closePopup(popupAdd);
 }
 
@@ -126,3 +128,4 @@ addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', editForm);
 popupAdd.addEventListener('submit', addCard);
 popupEdit.addEventListener('submit', saveProfile);
+

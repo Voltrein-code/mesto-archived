@@ -1,8 +1,7 @@
-import {page, selectorObject} from './data.js';
-
 export default class FormValidator {
-  constructor(selectorObject) {
+  constructor(selectorObject, validateItem) {
     this._selectorObject = selectorObject;
+    this._validateItem = validateItem;
   }
   
   //метод показа сообщения об ошибке валидации
@@ -75,15 +74,6 @@ export default class FormValidator {
 
   //включение валидации
   enableValidation() {
-    const formList = Array.from(page.querySelectorAll(this._selectorObject.formSelector));
-
-    formList.forEach((formElement) => {
-      this._setEventListeners(formElement, this._selectorObject);
-    })
-
+      this._setEventListeners(this._validateItem, this._selectorObject);
   }
 }
-
-//включение валидации
-export const validateForm = new FormValidator(selectorObject);
-validateForm.enableValidation();

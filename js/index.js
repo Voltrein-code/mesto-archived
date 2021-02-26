@@ -116,7 +116,8 @@ function addCard(evt) {
   addCardName.value = '';
   addCardLink.value = '';
 
-  FormValidator.deactivateButton(submitButton, selectorObject);
+  const validateAddForm = new FormValidator(selectorObject);
+  validateAddForm.deactivateButton(submitButton, selectorObject);
   closePopup(popupAdd);
 }
 

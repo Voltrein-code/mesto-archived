@@ -24,9 +24,9 @@ export default class FormValidator {
   //проверка валиднсти
   _checkInputValidity(formElement, inputElement, classObject) {
     if(!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage, classObject);
+      this._showInputError(formElement, inputElement, inputElement.validationMessage, classObject);
     } else {
-      hideInputError(formElement, inputElement, classObject);
+      this._hideInputError(formElement, inputElement, classObject);
     }
   }
 
@@ -39,8 +39,8 @@ export default class FormValidator {
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        checkInputValidity(formElement, inputElement, classObject);
-        toggleButtonState(inputList, buttonElement, classObject);
+        this._checkInputValidity(formElement, inputElement, classObject);
+        this._toggleButtonState(inputList, buttonElement, classObject);
       });
     });
   }
@@ -84,6 +84,6 @@ export default class FormValidator {
   }
 }
 
-const validateForm = new FormValidator(selectorObject);
 //включение валидации
+export const validateForm = new FormValidator(selectorObject);
 validateForm.enableValidation();

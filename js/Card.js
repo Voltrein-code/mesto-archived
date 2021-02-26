@@ -22,8 +22,8 @@ export default class Card {
     cardImage.alt = el.name;
     cardName.textContent = el.name;
     
-    likeButton.addEventListener('click', (event) => likeCard(event));
-    deleteButton.addEventListener('click', (event) => deleteCard(event));
+    likeButton.addEventListener('click', (event) => this._likeCard(event));
+    deleteButton.addEventListener('click', (event) => this._deleteCard(event));
   
     cardImage.addEventListener('click', () => {
       popupImage.src = el.link;

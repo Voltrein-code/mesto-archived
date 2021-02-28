@@ -12,8 +12,6 @@ const cardContent = page.querySelector('.card-container').content;//содерж
 const cardList = page.querySelector('.cards');//контейнер с карточками
 const popupImage = page.querySelector('.popup__image');//фотография из карточки в попап
 const popupFigcaption = page.querySelector('.popup__figcaption');//подпись для фотографии в попап
-const addCardName = popupAdd.querySelector('.popup__text_type_image');//строка ввода имени карточки
-const addCardLink = popupAdd.querySelector('.popup__text_type_link');//строка ввода ссылки на изображение карточки
 const closeEditPopup = page.querySelector('.popup__close_type_edit-form');//кнопка закрытия попапа редактирования
 const closeAddPopup = page.querySelector('.popup__close_type_add-form');//кнопка закрытия попапа добавления
 const closeImagePopup = page.querySelector('.popup__close_type_card-image');//кнопка закрытия попапа карточки
@@ -22,13 +20,19 @@ const profileCaption = page.querySelector('.profile__caption');//подпись 
 const addPopupButton = popupAdd.querySelector('.popup__submit');//кнопка submit
 const keyEscape = 'Escape';//код Escape
 
+//объект с данными карточки
+const cardDataObject = {
+  name: popupAdd.querySelector('.popup__text_type_image'),
+  link: popupAdd.querySelector('.popup__text_type_link')
+}
+
 //объект с именами селекторов
 const selectorObject = {
   formSelector: '.popup__container',
   inputSelector: '.popup__text',
   submitButtonSelector: '.popup__submit',
   activeButtonClass: 'popup__submit_active',
-  inputErrorClass: 'popup__text_type_error',
+  inputErrorClass: 'popup__text_type_error'
 };
 
 //массив с первоначальными карточками
@@ -60,5 +64,5 @@ const initialCards = [
 ];
 
 export {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, cardList, popupImage,
-        popupFigcaption, addCardName, addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, addPopupButton,
+        popupFigcaption, cardDataObject, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, addPopupButton,
         keyEscape, selectorObject, initialCards};

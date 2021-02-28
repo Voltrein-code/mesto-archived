@@ -1,45 +1,45 @@
 export default class FormValidator {
   constructor(selectorObject, validateItem) {
-    this._selectorObject = selectorObject;
+    this.selectorObject = selectorObject;
     this._validateItem = validateItem;
   }
   
   //метод показа сообщения об ошибке валидации
-  _showInputError(formElement, inputElement, errorMessage, classObject) {
+  _showInputError(formElement, inputElement, errorMessage) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    inputElement.classList.add(classObject.inputErrorClass);
+    inputElement.classList.add(this.selectorObject.inputErrorClass);
     errorElement.textContent = errorMessage;
   }
 
   //метод скрытия сообщения об ошибке валидации
-  _hideInputError(formElement, inputElement, classObject) {
+  _hideInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-    inputElement.classList.remove(classObject.inputErrorClass);
+    inputElement.classList.remove(this.selectorObject.inputErrorClass);
     errorElement.textContent = '';
   }
 
   //проверка валиднсти
-  _checkInputValidity(formElement, inputElement, classObject) {
+  _checkInputValidity(formElement, inputElement) {
     if(!inputElement.validity.valid) {
-      this._showInputError(formElement, inputElement, inputElement.validationMessage, classObject);
+      this._showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
-      this._hideInputError(formElement, inputElement, classObject);
+      this._hideInputError(formElement, inputElement);
     }
   }
 
   //установка слушателей для форм
-  _setEventListeners(formElement, classObject) {
-    const inputList = Array.from(formElement.querySelectorAll(classObject.inputSelector));
-    const buttonElement = formElement.querySelector(classObject.submitButtonSelector);
+  _setEventListeners(formElement) {
+    const inputList = Array.from(formElement.querySelectorAll(this.selectorObject.inputSelector));
+    const buttonElement = formElement.querySelector(this.selectorObject.submitButtonSelector);
 
-    this._toggleButtonState(inputList, buttonElement, classObject);
+    this._toggleButtonState(inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._checkInputValidity(formElement, inputElement, classObject);
-        this._toggleButtonState(inputList, buttonElement, classObject);
+        this._checkInputValidity(formElement, inputElement);
+        this._toggleButtonState(inputList, buttonElement);
       });
     });
   }
@@ -52,28 +52,28 @@ export default class FormValidator {
   }
 
   //деактивация кнопки
-  deactivateButton(button, classObject) {
-    button.classList.remove(classObject.activeButtonClass);
+  deactivateButton(button) {
+    button.classList.remove(this.selectorObject.activeButtonClass);
     button.setAttribute('disabled', 'disabled');
 }
 
   //активация кнопки
-  _activateButton(button, classObject) {
-    button.classList.add(classObject.activeButtonClass);
+  _activateButton(button) {
+    button.classList.add(this.selectorObject.activeButtonClass);
     button.removeAttribute('disabled');
   }
 
   //проверка статуса кнопки submit
-  _toggleButtonState (inputList, buttonElement, classObject) {
+  _toggleButtonState (inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
-      this.deactivateButton(buttonElement, classObject);
+      this.deactivateButton(buttonElement);
     } else {
-      this._activateButton(buttonElement, classObject);
+      this._activateButton(buttonElement);
     }
   }
 
   //включение валидации
   enableValidation() {
-      this._setEventListeners(this._validateItem, this._selectorObject);
+      this._setEventListeners(this._validateItem, this.selectorObject);
   }
 }

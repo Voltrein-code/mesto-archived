@@ -1,25 +1,24 @@
 //импорт необходимых модулей
-import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, addCardName,
-        addCardLink, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape, initialCards, selectorObject, cardList} from './data.js';
+import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, addPopupButton, cardDataObject,
+        closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape, initialCards, selectorObject, cardList, popupImage,
+        popupFigcaption} from './data.js';
 
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-//загрузка первоначальных карточек из массива
-const newCardAdder = new Card(cardContent, addCardLink.value, addCardName.value);
 initialCards.forEach((card) => {
-  cardList.append(newCardAdder.getCard(card));
+  const newCardAdder = new Card(cardContent, card, handleCardClick);
+  cardList.append(newCardAdder.getCard());
 })
 
 //включение валидации форм
-
 const validateAddForm = new FormValidator(selectorObject, popupAdd);
 const validateEditForm = new FormValidator(selectorObject, popupEdit);
 validateAddForm.enableValidation();
 validateEditForm.enableValidation();
 
 //функция открытия попап
-export function openPopup(currentPopup) {
+function openPopup(currentPopup) {
   currentPopup.classList.add(popupOpened);
 
   page.addEventListener('keydown', keyEscapeHandler);
@@ -45,7 +44,7 @@ function keyEscapeHandler(event) {
 }
 
 //функция закрытия попап
-export function closePopup(currentPopup) {
+function closePopup(currentPopup) {
   currentPopup.classList.remove(popupOpened);
   currentPopup.removeEventListener('click', closeOverlay);
   page.removeEventListener('keydown', keyEscapeHandler);
@@ -73,16 +72,26 @@ function addCard(evt) {
   evt.preventDefault();
 
   const newCard = {
-    name: addCardName.value,
-    link: addCardLink.value
+    name: cardDataObject.name.value,
+    link: cardDataObject.link.value
   };
 
-  cardList.prepend(newCardAdder.getCard(newCard));
-  addCardName.value = '';
-  addCardLink.value = '';
+  const newCardAdder = new Card(cardContent, newCard, handleCardClick);
 
-  validateAddForm.deactivateButton();
+  cardList.prepend(newCardAdder.getCard());
+  cardDataObject.name.value = '';
+  cardDataObject.link.value = '';
+
+  validateAddForm.deactivateButton(addPopupButton);
   closePopup(popupAdd);
+}
+
+//открытие карточки в окне попап
+function handleCardClick (el) {
+  popupImage.src = el.link;
+  popupImage.alt = el.name;
+  popupFigcaption.textContent = el.name;
+  openPopup(popupCard);
 }
 
 //События

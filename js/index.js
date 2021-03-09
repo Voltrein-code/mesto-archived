@@ -5,11 +5,17 @@ import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened
 
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from "./Section.js";
 
-initialCards.forEach((card) => {
-  const newCardAdder = new Card(cardContent, card, handleCardClick);
-  cardList.append(newCardAdder.getCard());
-})
+//добавление карточек из стандартного массива
+const initialCardsAdder = new Section({items: initialCards, renderer: (item) => {
+  const newCardAdder = new Card(cardContent, item, handleCardClick);
+  const cardElement = newCardAdder.getCard();
+
+  initialCardsAdder.addItem(cardElement, true);
+} }, cardList)
+
+initialCardsAdder.render();
 
 //включение валидации форм
 const validateAddForm = new FormValidator(selectorObject, popupAdd);
@@ -77,8 +83,10 @@ function addCard(evt) {
   };
 
   const newCardAdder = new Card(cardContent, newCard, handleCardClick);
+  const cardElement = newCardAdder.getCard();
 
-  cardList.prepend(newCardAdder.getCard());
+  initialCardsAdder.addItem(cardElement, false);
+
   cardDataObject.name.value = '';
   cardDataObject.link.value = '';
 
@@ -102,4 +110,3 @@ addButton.addEventListener('click', () => openPopup(popupAdd));
 editButton.addEventListener('click', editForm);
 popupAdd.addEventListener('submit', addCard);
 popupEdit.addEventListener('submit', saveProfile);
-

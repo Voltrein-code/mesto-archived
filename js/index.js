@@ -1,11 +1,16 @@
 //импорт необходимых модулей
-import {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, addPopupButton, cardDataObject,
-        closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, keyEscape, initialCards, selectorObject, cardList, popupImage,
-        popupFigcaption} from './data.js';
+import {editButton, addButton, popupEdit, popupAdd, popupCard, inputName, inputCaption, cardContent, addPopupButton, cardDataObject,
+        profileName, profileCaption, initialCards, selectorObject, cardList, popupImage, popupFigcaption} from './data.js';
 
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from "./Section.js";
+import Popup from "./Popup.js";
+
+//создание экземпляров попап
+const popupAddForm = new Popup(popupAdd);
+const popupEditForm = new Popup(popupEdit);
+const popupCardForm = new Popup(popupCard);
 
 //добавление карточек из стандартного массива
 const initialCardsAdder = new Section({items: initialCards, renderer: (item) => {
@@ -23,39 +28,6 @@ const validateEditForm = new FormValidator(selectorObject, popupEdit);
 validateAddForm.enableValidation();
 validateEditForm.enableValidation();
 
-//функция открытия попап
-function openPopup(currentPopup) {
-  currentPopup.classList.add(popupOpened);
-
-  page.addEventListener('keydown', keyEscapeHandler);
-  currentPopup.addEventListener('click', closeOverlay);
-}
-
-//закрытие попап по нажатию на оверлей
-function closeOverlay(event) { 
-  const openedPopup = page.querySelector('.popup_opened')
-
-  if(event.target === openedPopup) {
-    closePopup(openedPopup);
-  }
-}
-
-//закрытие попап по нажатию клавиши Esc
-function keyEscapeHandler(event) {
-  const openedPopup = page.querySelector('.popup_opened')
-
-  if(event.key === keyEscape) {
-    closePopup(openedPopup);
-  }
-}
-
-//функция закрытия попап
-function closePopup(currentPopup) {
-  currentPopup.classList.remove(popupOpened);
-  currentPopup.removeEventListener('click', closeOverlay);
-  page.removeEventListener('keydown', keyEscapeHandler);
-}
-
 //функция сохранения данных пользователя
 function saveProfile(evt) {
   evt.preventDefault();
@@ -63,7 +35,7 @@ function saveProfile(evt) {
   profileName.textContent = inputName.value;
   profileCaption.textContent = inputCaption.value;
 
-  closePopup(popupEdit);
+  popupEditForm.close();
 }
 
 //функция открытия формы редактирования профиля
@@ -71,7 +43,7 @@ function editForm() {
   inputName.value = profileName.textContent;
   inputCaption.value = profileCaption.textContent;
 
-  openPopup(popupEdit); 
+  popupEditForm.open();
 }
 
 function addCard(evt) {
@@ -91,7 +63,7 @@ function addCard(evt) {
   cardDataObject.link.value = '';
 
   validateAddForm.deactivateButton(addPopupButton);
-  closePopup(popupAdd);
+  popupAddForm.close();
 }
 
 //открытие карточки в окне попап
@@ -99,14 +71,12 @@ function handleCardClick (el) {
   popupImage.src = el.link;
   popupImage.alt = el.name;
   popupFigcaption.textContent = el.name;
-  openPopup(popupCard);
+  popupCardForm.open();
 }
 
 //События
-closeAddPopup.addEventListener('click', () => closePopup(popupAdd));
-closeEditPopup.addEventListener('click', () => closePopup(popupEdit));
-closeImagePopup.addEventListener('click', () => closePopup(popupCard));
-addButton.addEventListener('click', () => openPopup(popupAdd));
+addButton.addEventListener('click', () => popupAddForm.open());
 editButton.addEventListener('click', editForm);
+
 popupAdd.addEventListener('submit', addCard);
 popupEdit.addEventListener('submit', saveProfile);

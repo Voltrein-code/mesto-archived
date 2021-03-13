@@ -4,7 +4,7 @@ export default class Card {
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
   }
-  
+
   //метод заполнения данных карточки и ее события
   getCard() {
     const card = this._templateElement.cloneNode(true);
@@ -12,13 +12,13 @@ export default class Card {
     const cardName = card.querySelector('.card__name');
     const likeButton = card.querySelector('.card__like-button');
     const deleteButton = card.querySelector('.card__delete-button');
-  
+
     cardImage.src = this._cardData.link;
     cardImage.alt = this._cardData.name;
     cardName.textContent = this._cardData.name;
-    
+
     this._setEventListeners(likeButton, deleteButton, cardImage)
-  
+
     return card;
   }
 
@@ -30,12 +30,12 @@ export default class Card {
   }
 
   //метод лайка карточки
-  _likeCard (event) {
+  _likeCard(event) {
     event.target.classList.toggle('card__like-button_active')
   }
 
   //метод удаления карточки
-  _deleteCard (event) {
+  _deleteCard(event) {
     event.target.closest('.card').remove();
   }
 }

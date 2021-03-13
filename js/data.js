@@ -63,6 +63,8 @@ const initialCards = [
   }
 ];
 
-export {page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, cardList, popupImage,
-        popupFigcaption, cardDataObject, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, addPopupButton,
-        keyEscape, selectorObject, initialCards};
+export {
+  page, editButton, addButton, popupEdit, popupAdd, popupCard, popupOpened, inputName, inputCaption, cardContent, cardList, popupImage,
+  popupFigcaption, cardDataObject, closeEditPopup, closeAddPopup, closeImagePopup, profileName, profileCaption, addPopupButton,
+  keyEscape, selectorObject, initialCards
+};

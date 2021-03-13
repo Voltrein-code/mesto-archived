@@ -3,7 +3,7 @@ export default class FormValidator {
     this.selectorObject = selectorObject;
     this._validateItem = validateItem;
   }
-  
+
   //метод показа сообщения об ошибке валидации
   _showInputError(formElement, inputElement, errorMessage) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -22,7 +22,7 @@ export default class FormValidator {
 
   //проверка валиднсти
   _checkInputValidity(formElement, inputElement) {
-    if(!inputElement.validity.valid) {
+    if (!inputElement.validity.valid) {
       this._showInputError(formElement, inputElement, inputElement.validationMessage);
     } else {
       this._hideInputError(formElement, inputElement);
@@ -45,7 +45,7 @@ export default class FormValidator {
   }
 
   //получить статус для кнопки
-  _hasInvalidInput (inputList) {
+  _hasInvalidInput(inputList) {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
@@ -55,7 +55,7 @@ export default class FormValidator {
   deactivateButton(button) {
     button.classList.remove(this.selectorObject.activeButtonClass);
     button.setAttribute('disabled', 'disabled');
-}
+  }
 
   //активация кнопки
   _activateButton(button) {
@@ -64,7 +64,7 @@ export default class FormValidator {
   }
 
   //проверка статуса кнопки submit
-  _toggleButtonState (inputList, buttonElement) {
+  _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       this.deactivateButton(buttonElement);
     } else {
@@ -74,6 +74,6 @@ export default class FormValidator {
 
   //включение валидации
   enableValidation() {
-      this._setEventListeners(this._validateItem, this.selectorObject);
+    this._setEventListeners(this._validateItem, this.selectorObject);
   }
 }

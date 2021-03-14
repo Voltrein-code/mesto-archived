@@ -1,13 +1,15 @@
 //импорт необходимых модулей
+import './pages/index.css';
+
 import {
   editButton, addButton, popupEdit, popupAdd, popupCard, inputName, inputCaption, cardContent, addPopupButton, profileName, profileCaption, initialCards, selectorObject, cardList
-} from './data.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+} from './js/data.js';
+import Card from './js/Card.js';
+import FormValidator from './js/FormValidator.js';
+import Section from './js/Section.js';
+import PopupWithImage from './js/PopupWithImage.js';
+import PopupWithForm from './js/PopupWithForm.js';
+import UserInfo from './js/UserInfo.js';
 
 //экземпляр класса UserInfo
 const currentUser = new UserInfo({ nameSelector: profileName, captionSelector: profileCaption });

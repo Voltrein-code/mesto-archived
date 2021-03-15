@@ -2,22 +2,24 @@ export default class Popup {
   constructor(popupSelector) {
     this._currentPopup = popupSelector;
     this._closeButton = this._currentPopup.querySelector('.popup__close');
+    this._handleEscClose = this._handleEscClose.bind(this);
+    this._closeOverlay = this._closeOverlay.bind(this);
   }
 
   //метод открытия попап
   open() {
     this._currentPopup.classList.add('popup_opened');
 
-    document.addEventListener('keydown', (event) =>  this._handleEscClose(event));
-    this._currentPopup.addEventListener('click', (event) => this._closeOverlay(event));
+    document.addEventListener('keydown', this._handleEscClose);
+    this._currentPopup.addEventListener('click', this._closeOverlay);
   }
 
   //метод закрытия попап
   close() {
     this._currentPopup.classList.remove('popup_opened');
 
-    document.removeEventListener('keydown', (event) =>  this._handleEscClose(event));
-    this._currentPopup.removeEventListener('click', (event) => this._closeOverlay(event));
+    document.removeEventListener('keydown', this._handleEscClose);
+    this._currentPopup.removeEventListener('click', this._closeOverlay);
   }
 
   //метод закрытия попап окна клавишей Esc

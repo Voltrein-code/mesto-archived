@@ -1,31 +1,41 @@
 export default class Card {
-  constructor(templateElement, cardData, handleCardClick) {
+  constructor(templateElement, cardData, handleCardClick, {handleCardDelete}) {
     this._templateElement = templateElement;
     this._cardData = cardData;
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete;
   }
 
   //метод заполнения данных карточки и ее события
-  getCard() {
+  _getTemplate() {
     const card = this._templateElement.cloneNode(true);
-    const cardImage = card.querySelector('.card__image');
-    const cardName = card.querySelector('.card__name');
-    const likeButton = card.querySelector('.card__like-button');
-    const deleteButton = card.querySelector('.card__delete-button');
-
-    cardImage.src = this._cardData.link;
-    cardImage.alt = this._cardData.name;
-    cardName.textContent = this._cardData.name;
-
-    this._setEventListeners(likeButton, deleteButton, cardImage)
 
     return card;
+  }
+  
+  getCard() {
+    this._cardElement = this._getTemplate();
+
+    this._cardImage = this._cardElement.querySelector('.card__image');
+    this._cardName = this._cardElement.querySelector('.card__name');
+    this._likeButton = this._cardElement.querySelector('.card__like-button');
+    this._likeCounter = this._cardElement.querySelector('.card__like-counter');
+    this._deleteButton = this._cardElement.querySelector('.card__delete-button');
+
+    this._cardImage.src = this._cardData.link;
+    this._cardImage.alt = this._cardData.name;
+    this._cardName.textContent = this._cardData.name;
+    this._likeCounter.textContent = this._cardData.likes.length;
+
+    this._setEventListeners(this._likeButton, this._deleteButton, this._cardImage)
+
+    return this._cardElement;
   }
 
   //навешивание обработчиков
   _setEventListeners(likeButton, deleteButton, cardImage) {
     likeButton.addEventListener('click', (event) => this._likeCard(event));
-    deleteButton.addEventListener('click', (event) => this._deleteCard(event));
+    deleteButton.addEventListener('click', this._handleCardDelete);
     cardImage.addEventListener('click', () => this._handleCardClick(this._cardData));
   }
 
@@ -35,7 +45,7 @@ export default class Card {
   }
 
   //метод удаления карточки
-  _deleteCard(event) {
-    event.target.closest('.card').remove();
+  deleteCard() {
+    this._deleteButton.closest('.card').remove();
   }
 }

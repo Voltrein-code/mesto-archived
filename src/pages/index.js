@@ -24,14 +24,13 @@ const api = new Api({
   }
 });
 
-
-
 //экземпляр класса UserInfo
 const currentUser = new UserInfo({ nameSelector: profileName, captionSelector: profileCaption });
 
 api.getUserInfo()
   .then((user) => {
     currentUser.setUserInfo(user);
+    renderCards();
   })
 
 //загрузка карточек с сервера
@@ -41,7 +40,7 @@ const initialCardsAdder = new Section({
   }
 }, cardList)
 
-renderCards();
+
 
 //создание экземпляров попап
 const popupAddForm = new PopupWithForm({
@@ -102,6 +101,7 @@ function handleCardClick(el) {
   popupCardForm.open(el.name, el.link)
 }
 
+//удаление карточки с сервера и из DOM
 function handleCardDelete(card) {
   popupCardDelete.open(() => {
     api.deleteCard(card._cardData._id)
@@ -116,14 +116,30 @@ function handleCardDelete(card) {
   })
 }
 
+//лайк карточки
+function handleCardLike(card, data) {
+  const likePromise = card.isLiked() ? api.dislike(data._id) : api.like(data._id);
+
+  likePromise
+    .then((data) => {
+      card.setLike(data);
+    })
+    .catch((err) => {
+      console.log(`${err}`);
+  });
+}
 
 //создание карточки
 function createCard(item, isInitial) {
-  const newCardAdder = new Card(cardContent, item, handleCardClick, {handleCardDelete: () => {
+  const newCardAdder = new Card(cardContent, item, currentUser.userId, handleCardClick, {handleCardDelete: () => {
     handleCardDelete(newCardAdder);
-  }});
+  },
+    handleLikeCard: () => {
+      handleCardLike(newCardAdder, item);
+    }
+});
   const cardElement = newCardAdder.getCard();
-
+  newCardAdder.setLike(item);
   initialCardsAdder.addItem(cardElement, isInitial);
 }
 //События

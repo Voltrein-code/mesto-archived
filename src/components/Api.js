@@ -57,4 +57,20 @@ export default class Api {
     })
       .then(this._getServerResponse);
   }
+
+  like(id) {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+      method: 'PUT',
+      headers: this.headers
+    })
+      .then(this._getServerResponse);
+  }
+
+  dislike(id) {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then(this._getServerResponse);
+  }
 }

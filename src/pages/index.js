@@ -4,7 +4,7 @@ import './index.css';
 import {
   editButton, addButton, popupEdit, popupAdd, popupCard, inputName, inputCaption, cardContent,
   cardList, profileName, profileCaption, addPopupButton, serverUrl, serverToken, popupDelete,
-  selectorObject
+  selectorObject, avatarEditButton, popupAvatar
 } from '../utils/data.js';
 
 import Card from '../components/Card.js';
@@ -24,27 +24,26 @@ const api = new Api({
   }
 });
 
-//экземпляр класса UserInfo
+//получение информации о пользователе с сервера и отрисовка
 const currentUser = new UserInfo({ nameSelector: profileName, captionSelector: profileCaption });
 
 api.getUserInfo()
   .then((user) => {
     currentUser.setUserInfo(user);
+    currentUser.setUserAvatar(user.avatar);
     renderCards();
   })
 
-//загрузка карточек с сервера
 const initialCardsAdder = new Section({
   renderer: (item) => {
     createCard(item, true);
   }
 }, cardList)
 
-
-
 //создание экземпляров попап
 const popupAddForm = new PopupWithForm({
   popupSelector: popupAdd, handleFormSubmit: (item) => {
+    popupAddForm.renderLoading(true);
     api.addCard(item)
       .then((res) => {
         createCard(res, false);
@@ -59,6 +58,7 @@ const popupAddForm = new PopupWithForm({
 
 const popupEditForm = new PopupWithForm({
   popupSelector: popupEdit, handleFormSubmit: (item) => {
+    popupEditForm.renderLoading(true);
     api.setUserInfo(item)
       .then((data) => {
         currentUser.setUserInfo(data);
@@ -70,26 +70,44 @@ const popupEditForm = new PopupWithForm({
   }
 });
 
+const popupAvatarForm = new PopupWithForm({
+  popupSelector: popupAvatar, handleFormSubmit: (item) => {
+    popupAvatarForm.renderLoading(true);
+    api.setAvatar(item)
+      .then((data) => {
+        currentUser.setUserAvatar(data.avatar);
+        popupAvatarForm.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+})
+
 const popupCardForm = new PopupWithImage(popupCard);
 
 const popupCardDelete = new PopupWithSubmit(popupDelete);
 
+//установка слушателей на попапы
 popupAddForm.setEventListeners();
 popupEditForm.setEventListeners();
 popupCardForm.setEventListeners();
 popupCardDelete.setEventListeners();
+popupAvatarForm.setEventListeners();
 
 //включение валидации форм
 const validateAddForm = new FormValidator(selectorObject, popupAdd);
 const validateEditForm = new FormValidator(selectorObject, popupEdit);
+const validateAvatarForm = new FormValidator(selectorObject, popupAvatar);
 validateAddForm.enableValidation();
 validateEditForm.enableValidation();
+validateAvatarForm.enableValidation();
 
+//прогрузка карточек
 function renderCards() {
   api.getCards()
   .then((data) => {
     initialCardsAdder.render(data);
-    console.log(data);
   })
   .catch((err) => {
     console.log(err);
@@ -138,12 +156,14 @@ function createCard(item, isInitial) {
       handleCardLike(newCardAdder, item);
     }
 });
+
   const cardElement = newCardAdder.getCard();
   newCardAdder.setLike(item);
   initialCardsAdder.addItem(cardElement, isInitial);
 }
 //События
 addButton.addEventListener('click', () => popupAddForm.open());
+avatarEditButton.addEventListener('click', () => popupAvatarForm.open());
 editButton.addEventListener('click', () => {
   const userData = currentUser.getUserInfo();
 

@@ -15,12 +15,14 @@ export default class Card {
     return card;
   }
 
+  //метод отрисовки кнопки удаления карточки принадлежащей текущему пользователю
   _setDeleteButton() {
     if (this._cardData.owner._id !== this._userId) {
       this._deleteButton.classList.add('card__delete-button_hidden');
     }
   }
 
+  //метод прорисовки лайка
   setLike(data) {
     this._isLiked = data.likes.filter((item) => {
       return item._id == this._userId
@@ -58,7 +60,7 @@ export default class Card {
     return this._cardElement;
   }
 
-  //навешивание обработчиков
+  //навешивание слушателей
   _setEventListeners(likeButton, deleteButton, cardImage) {
     likeButton.addEventListener('click', () => this._handleLikeCard());
     deleteButton.addEventListener('click', this._handleCardDelete);
